@@ -244,6 +244,1180 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/bre/rules": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Current eligibility rule set, for client-side hints */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["RuleSet"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/borrower/profile": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Own profile, onboarding stage, slip and latest BRE result */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["BorrowerProfile"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    /** Submit personal details; the server runs the BRE */
+    put: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["ProfileBody"];
+        };
+      };
+      responses: {
+        /** @description Eligible */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["BorrowerProfile"];
+          };
+        };
+        /** @description Request does not match the schema */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Business rule violated */
+        422: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/borrower/salary-slip": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Upload salary slip (PDF/JPG/PNG, ≤ 5 MB) as multipart field "file" */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "multipart/form-data": {
+            /** Format: binary */
+            file: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Stored */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["BorrowerProfile"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Business rule violated */
+        422: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/borrower/loans": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Own loans, newest first */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["Loan"][];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    /** Apply. Server computes interest and total. */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["ApplyBody"];
+        };
+      };
+      responses: {
+        /** @description Applied */
+        201: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["Loan"];
+          };
+        };
+        /** @description Request does not match the schema */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/borrower/loans/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Own loan with payments (404 if not yours) */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanWithPayments"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/sales/leads": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Borrowers who have not applied */
+    get: {
+      parameters: {
+        query?: {
+          page?: number;
+          limit?: number;
+          stage?: "REGISTERED" | "BRE_REJECTED" | "DETAILS_SUBMITTED" | "SLIP_UPLOADED";
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LeadPage"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/sanction/loans": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Loans awaiting a decision (APPLIED) */
+    get: {
+      parameters: {
+        query?: {
+          page?: number;
+          limit?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanPage"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/sanction/loans/{id}/salary-slip": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Presigned 5-minute URL for the slip */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["SlipUrl"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/sanction/loans/{id}/approve": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** APPLIED → SANCTIONED */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanWithPayments"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/sanction/loans/{id}/reject": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** APPLIED → REJECTED with a reason */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["RejectBody"];
+        };
+      };
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanWithPayments"];
+          };
+        };
+        /** @description Request does not match the schema */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/disbursement/loans": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Loans awaiting disbursement (SANCTIONED) */
+    get: {
+      parameters: {
+        query?: {
+          page?: number;
+          limit?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanPage"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/disbursement/loans/{id}/disburse": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** SANCTIONED → DISBURSED */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanWithPayments"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/collection/loans": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Active loans (DISBURSED) with outstanding */
+    get: {
+      parameters: {
+        query?: {
+          page?: number;
+          limit?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanPage"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/collection/loans/{id}/payments": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Payment history */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["Payment"][];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    /** Record a payment; closes the loan when fully paid */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["RecordPaymentBody"];
+        };
+      };
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["PaymentResult"];
+          };
+        };
+        /** @description Request does not match the schema */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Business rule violated */
+        422: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/ops/loans/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Loan detail with borrower, BRE result, history and payments */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["LoanWithPayments"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -279,6 +1453,222 @@ export interface components {
       /** @enum {string} */
       status: "ok" | "degraded";
       mongo: boolean;
+    };
+    RuleSet: {
+      version: number;
+      rules: components["schemas"]["RuleDef"][];
+    };
+    RuleDef:
+      | {
+          id: string;
+          /** @enum {string} */
+          type: "RANGE";
+          /** @enum {string} */
+          field: "age" | "monthlySalary";
+          min?: number;
+          max?: number;
+          message: string;
+        }
+      | {
+          id: string;
+          /** @enum {string} */
+          type: "REGEX";
+          /** @enum {string} */
+          field: "pan";
+          pattern: string;
+          message: string;
+        }
+      | {
+          id: string;
+          /** @enum {string} */
+          type: "NOT_IN";
+          /** @enum {string} */
+          field: "employmentMode";
+          values: string[];
+          message: string;
+        };
+    BorrowerProfile: {
+      /** @enum {string} */
+      onboardingStage:
+        "REGISTERED" | "BRE_REJECTED" | "DETAILS_SUBMITTED" | "SLIP_UPLOADED" | "APPLIED";
+      profile?: {
+        fullName: string;
+        pan: string;
+        /** Format: date */
+        dob: string;
+        monthlySalaryPaise: number;
+        /** @enum {string} */
+        employmentMode: "SALARIED" | "SELF_EMPLOYED" | "UNEMPLOYED";
+      };
+      salarySlip?: components["schemas"]["SalarySlip"];
+      breResult?: components["schemas"]["BreResult"];
+    };
+    SalarySlip: {
+      mime: string;
+      size: number;
+      originalName: string;
+      /** Format: date-time */
+      uploadedAt: string;
+    };
+    BreResult: {
+      passed: boolean;
+      failures: {
+        rule: string;
+        message: string;
+      }[];
+      rulesVersion: number;
+      /** Format: date-time */
+      evaluatedAt: string;
+    };
+    ProfileBody: {
+      fullName: string;
+      pan: string;
+      /** Format: date */
+      dob: string;
+      monthlySalaryPaise: number;
+      /** @enum {string} */
+      employmentMode: "SALARIED" | "SELF_EMPLOYED" | "UNEMPLOYED";
+    };
+    Loan: {
+      id: string;
+      /** @enum {string} */
+      status: "APPLIED" | "SANCTIONED" | "REJECTED" | "DISBURSED" | "CLOSED";
+      /** @enum {string} */
+      currency: "INR";
+      principalPaise: number;
+      tenureDays: number;
+      rateBps: number;
+      interestPaise: number;
+      totalRepaymentPaise: number;
+      amountPaidPaise: number;
+      outstandingPaise: number;
+      salarySlip: components["schemas"]["SalarySlip"];
+      rejectionReason?: string;
+      /** Format: date-time */
+      appliedAt: string;
+      /** Format: date-time */
+      sanctionedAt?: string;
+      /** Format: date-time */
+      rejectedAt?: string;
+      /** Format: date-time */
+      disbursedAt?: string;
+      /** Format: date-time */
+      closedAt?: string;
+      statusHistory: components["schemas"]["StatusChange"][];
+      borrower?: components["schemas"]["BorrowerSummary"];
+    };
+    StatusChange: {
+      /** @enum {string|null} */
+      from: "APPLIED" | "SANCTIONED" | "REJECTED" | "DISBURSED" | "CLOSED" | null;
+      /** @enum {string} */
+      to: "APPLIED" | "SANCTIONED" | "REJECTED" | "DISBURSED" | "CLOSED";
+      by: string;
+      /** Format: date-time */
+      at: string;
+      note?: string;
+    };
+    BorrowerSummary: {
+      id: string;
+      email: string;
+      fullName?: string;
+      pan?: string;
+      monthlySalaryPaise?: number;
+      /** @enum {string} */
+      employmentMode?: "SALARIED" | "SELF_EMPLOYED" | "UNEMPLOYED";
+      /** @enum {string} */
+      onboardingStage?:
+        "REGISTERED" | "BRE_REJECTED" | "DETAILS_SUBMITTED" | "SLIP_UPLOADED" | "APPLIED";
+      breResult?: components["schemas"]["BreResult"];
+    };
+    ApplyBody: {
+      principalPaise: number;
+      tenureDays: number;
+    };
+    LoanWithPayments: {
+      id: string;
+      /** @enum {string} */
+      status: "APPLIED" | "SANCTIONED" | "REJECTED" | "DISBURSED" | "CLOSED";
+      /** @enum {string} */
+      currency: "INR";
+      principalPaise: number;
+      tenureDays: number;
+      rateBps: number;
+      interestPaise: number;
+      totalRepaymentPaise: number;
+      amountPaidPaise: number;
+      outstandingPaise: number;
+      salarySlip: components["schemas"]["SalarySlip"];
+      rejectionReason?: string;
+      /** Format: date-time */
+      appliedAt: string;
+      /** Format: date-time */
+      sanctionedAt?: string;
+      /** Format: date-time */
+      rejectedAt?: string;
+      /** Format: date-time */
+      disbursedAt?: string;
+      /** Format: date-time */
+      closedAt?: string;
+      statusHistory: components["schemas"]["StatusChange"][];
+      borrower?: components["schemas"]["BorrowerSummary"];
+      payments: components["schemas"]["Payment"][];
+    };
+    Payment: {
+      id: string;
+      loanId: string;
+      utr: string;
+      amountPaise: number;
+      /** @enum {string} */
+      currency: "INR";
+      /** Format: date */
+      paidAt: string;
+      /** Format: date-time */
+      recordedAt: string;
+    };
+    LeadPage: {
+      items: components["schemas"]["Lead"][];
+      page: number;
+      limit: number;
+      total: number;
+    };
+    Lead: {
+      id: string;
+      email: string;
+      fullName?: string;
+      pan?: string;
+      monthlySalaryPaise?: number;
+      /** @enum {string} */
+      employmentMode?: "SALARIED" | "SELF_EMPLOYED" | "UNEMPLOYED";
+      /** @enum {string} */
+      onboardingStage?:
+        "REGISTERED" | "BRE_REJECTED" | "DETAILS_SUBMITTED" | "SLIP_UPLOADED" | "APPLIED";
+      breResult?: components["schemas"]["BreResult"];
+      /** Format: date-time */
+      registeredAt: string;
+    };
+    LoanPage: {
+      items: components["schemas"]["Loan"][];
+      page: number;
+      limit: number;
+      total: number;
+    };
+    SlipUrl: {
+      /** Format: uri */
+      url: string;
+      expiresInSeconds: number;
+    };
+    RejectBody: {
+      reason: string;
+    };
+    PaymentResult: {
+      payment: components["schemas"]["Payment"];
+      loan: components["schemas"]["Loan"];
+    };
+    RecordPaymentBody: {
+      utr: string;
+      amountPaise: number;
+      /** Format: date */
+      paidAt: string;
     };
   };
   responses: never;

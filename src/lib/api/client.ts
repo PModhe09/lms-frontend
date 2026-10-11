@@ -35,3 +35,17 @@ export async function unwrap<T>(
     envelope?.error?.details,
   );
 }
+
+/** For calls openapi-fetch does not cover well (multipart upload). Same error mapping as `unwrap`. */
+export async function fetchJson<T>(input: string, init?: RequestInit): Promise<T> {
+  const response = await fetch(input, { credentials: "same-origin", ...init });
+  const body = await response.json().catch(() => undefined);
+  if (response.ok) return body as T;
+  const envelope = body as Partial<ErrorEnvelope> | undefined;
+  throw new ApiError(
+    response.status,
+    envelope?.error?.code ?? "UNKNOWN",
+    envelope?.error?.message ?? "Something went wrong. Please try again.",
+    envelope?.error?.details,
+  );
+}

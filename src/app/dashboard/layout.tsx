@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/app-header";
 import { OpsNav } from "@/components/ops-nav";
+import { RoleProvider } from "@/components/ops/session-context";
 import { fetchMe } from "@/lib/api/me";
 import { modulesFor } from "@/lib/rbac";
 
@@ -17,7 +18,9 @@ export default async function DashboardLayout({ children }: LayoutProps<"/dashbo
         <aside className="border-b p-2 md:w-56 md:shrink-0 md:border-r md:border-b-0 md:p-4">
           <OpsNav modules={modules} />
         </aside>
-        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6">{children}</main>
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6">
+          <RoleProvider role={me.role}>{children}</RoleProvider>
+        </main>
       </div>
     </div>
   );

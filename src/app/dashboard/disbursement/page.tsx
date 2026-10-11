@@ -1,7 +1,16 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = { title: "Disbursement" };
+import { DisburseAction } from "@/components/ops/disburse-action";
+import { LoanQueue } from "@/components/ops/loan-queue";
 
 export default function DisbursementPage() {
-  return <h1 className="text-2xl font-semibold tracking-tight">Disbursement</h1>;
+  return (
+    <LoanQueue
+      module="disbursement"
+      title="Disbursement"
+      description="Sanctioned loans waiting for funds to be released."
+      empty="Nothing to disburse. Sanctioned loans appear here."
+      actions={(loan) => <DisburseAction loan={loan} />}
+    />
+  );
 }

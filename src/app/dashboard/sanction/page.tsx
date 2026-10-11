@@ -1,7 +1,16 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = { title: "Sanction" };
+import { LoanQueue } from "@/components/ops/loan-queue";
+import { SanctionActions } from "@/components/ops/sanction-actions";
 
 export default function SanctionPage() {
-  return <h1 className="text-2xl font-semibold tracking-tight">Sanction</h1>;
+  return (
+    <LoanQueue
+      module="sanction"
+      title="Sanction"
+      description="Applications awaiting a decision. Open one to review the borrower, eligibility result and salary slip."
+      empty="No applications waiting. New ones appear here as borrowers apply."
+      actions={(loan) => <SanctionActions loan={loan} />}
+    />
+  );
 }

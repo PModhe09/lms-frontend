@@ -1,7 +1,17 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = { title: "Collection" };
+import { LoanQueue } from "@/components/ops/loan-queue";
+import { PaymentAction } from "@/components/ops/payment-action";
 
 export default function CollectionPage() {
-  return <h1 className="text-2xl font-semibold tracking-tight">Collection</h1>;
+  return (
+    <LoanQueue
+      module="collection"
+      title="Collection"
+      description="Active loans. Record repayments by UTR; a loan closes automatically once fully repaid."
+      empty="No active loans. Disbursed loans appear here."
+      showOutstanding
+      actions={(loan) => <PaymentAction loan={loan} />}
+    />
+  );
 }

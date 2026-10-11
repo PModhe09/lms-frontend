@@ -49,44 +49,44 @@ Legend: `[ ]` todo · `[x]` done · **AC** = acceptance criteria.
 
 ## (b) Personal details + BRE
 
-- [ ] b1. Fetch `GET /api/bre/rules`; generic client evaluator (`src/lib/bre.ts`) gives inline hints. No thresholds hard-coded.
-- [ ] b2. Details form: full name, PAN (auto-uppercase), DOB, monthly salary, employment mode. On 422 show every failed rule.
+- [x] b1. Fetch `GET /api/bre/rules`; generic client evaluator (`src/lib/bre.ts`) gives inline hints. No thresholds hard-coded.
+- [x] b2. Details form: full name, PAN (auto-uppercase), DOB, monthly salary, employment mode. On 422 show every failed rule.
 
 **AC**: hints match the server result for the boundary cases (unit test on the evaluator with the v1 rules fixture).
 
 ## (c) Salary slip upload
 
-- [ ] c1. Drop zone (PDF/JPG/PNG, 5 MB check before upload for UX), progress state, shows uploaded file info.
+- [x] c1. Drop zone (PDF/JPG/PNG, 5 MB check before upload for UX), progress state, shows uploaded file info.
 
 **AC**: a 6 MB file is refused in the browser; a server 422 message is shown as-is.
 
 ## (d) Loan config + apply
 
-- [ ] d1. Sliders: amount ₹50,000–₹5,00,000 step ₹1,000, tenure 30–365 days step 1. Live SI and total (display only; the server decides).
-- [ ] d2. Apply button sends `{principalPaise, tenureDays}`; success shows the loan status card. `OPEN_LOAN_EXISTS` → message + link to the loan.
-- [ ] d3. "My loans" list and loan detail with status timeline and payments.
+- [x] d1. Sliders: amount ₹50,000–₹5,00,000 step ₹1,000, tenure 30–365 days step 1. Live SI and total (display only; the server decides).
+- [x] d2. Apply button sends `{principalPaise, tenureDays}`; success shows the loan status card. `OPEN_LOAN_EXISTS` → message + link to the loan.
+- [x] d3. "My loans" list and loan detail with status timeline and payments.
 
 **AC**: the displayed total equals the server's `totalRepaymentPaise` for a sample of inputs (unit test against the same formula).
 
 ## (e) Sanction
 
-- [ ] e1. Table of APPLIED loans; detail drawer (borrower, BRE result, history, "view slip" via presigned URL); Approve; Reject with a required reason dialog. 409 → toast "already handled" + refetch.
+- [x] e1. Table of APPLIED loans; detail drawer (borrower, BRE result, history, "view slip" via presigned URL); Approve; Reject with a required reason dialog. 409 → toast "already handled" + refetch.
 
 ## (f) Disbursement
 
-- [ ] f1. Table of SANCTIONED loans; Disburse with confirm dialog.
+- [x] f1. Table of SANCTIONED loans; Disburse with confirm dialog.
 
 ## (g) Collection
 
-- [ ] g1. Table of DISBURSED loans with outstanding; record-payment dialog (UTR, amount in ₹, date picker limited to disbursedAt..today); payment history. Closed loans leave the list with a toast.
+- [x] g1. Table of DISBURSED loans with outstanding; record-payment dialog (UTR, amount in ₹, date picker limited to disbursedAt..today); payment history. Closed loans leave the list with a toast.
 
 ## (h) Sales leads
 
-- [ ] h1. Leads table with a stage filter and BRE failure reasons.
+- [x] h1. Leads table with a stage filter and BRE failure reasons.
 
 ## (i) Admin view
 
-- [ ] i1. Admin sees all four modules in the sidebar; dashboard home shows counts per module.
+- [x] i1. Admin sees all four modules in the sidebar; dashboard home shows counts per module.
 
 ## (j) Polish
 
