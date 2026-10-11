@@ -11,7 +11,7 @@ one-command Docker setup are in the backend README.
 
 - **Borrower portal** (`/apply`): three-step flow driven by the server's onboarding stage — personal details with
   instant eligibility hints (from the server's own rule set at `/api/bre/rules`; thresholds are never hard-coded here),
-  drag-and-drop salary slip upload, amount/tenure sliders with live simple interest, then loan tracking with timeline and payments.
+  drag-and-drop salary slip upload (straight to private storage with a presigned URL when the API host caps request size), amount/tenure sliders with live simple interest, then loan tracking with timeline and payments.
 - **Operations dashboard** (`/dashboard`): Sales leads, Sanction (approve / reject with reason), Disbursement, Collection
   (record payments by UTR; loans auto-close). Admin sees all modules. A shared detail sheet shows the borrower, BRE result,
   salary slip (5-minute presigned link), status history and payments.
@@ -40,7 +40,7 @@ npm run test:e2e             # Playwright against http://localhost:3000 (or E2E_
 npm run lint && npm run typecheck
 ```
 
-The E2E suite signs up a borrower, fails then passes eligibility, uploads a slip, applies, and takes the loan through
+The E2E suite uploads a 4.9 MB slip (and sees a 5.1 MB one refused in the browser), signs up a borrower, fails then passes eligibility, uploads a slip, applies, and takes the loan through
 sanction → disbursement → two payments → CLOSED; it also checks that a Sales user is redirected from Sanction and gets
 403 from the API, and that Admin sees every module on a phone-size screen. It passes locally and against the live site
 (`E2E_BASE_URL=https://lms-web-five-nu.vercel.app npm run test:e2e`).

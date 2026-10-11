@@ -1,11 +1,11 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlertCircle, FileCheck2, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { ApiError, fetchJson } from "@/lib/api/client";
+import { api, ApiError, fetchJson, unwrap } from "@/lib/api/client";
 import type { BorrowerProfile } from "@/lib/api/types";
 import { formatBytes, formatDateTime } from "@/lib/format";
 import { keys } from "@/lib/queries";
@@ -20,8 +20,31 @@ export function SlipUpload({ profile, onDone }: { profile: BorrowerProfile; onDo
   const [dragging, setDragging] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
 
+  const options = useQuery({
+    queryKey: ["borrower", "upload-options"],
+    queryFn: () => unwrap(api.GET("/borrower/salary-slip/upload-options")),
+    staleTime: Infinity,
+  });
+
   const upload = useMutation({
-    mutationFn: (file: File) => {
+    mutationFn: async (file: File) => {
+      const opts = options.data ?? (await unwrap(api.GET("/borrower/salary-slip/upload-options")));
+      if (opts.mode === "direct") {
+        // Browser → private storage with a 5-minute presigned URL (the hosting platform caps request
+        // bodies below 5 MB). The server then checks what landed: size and real file type.
+        const { uploadPresigned } = await import("@vercel/blob/client");
+        const ext =
+          file.type === "application/pdf" ? "pdf" : file.type === "image/png" ? "png" : "jpg";
+        const key = `${opts.keyPrefix}${crypto.randomUUID()}.${ext}`;
+        await uploadPresigned(key, file, {
+          access: "private",
+          contentType: file.type,
+          handleUploadUrl: "/api/borrower/salary-slip/presign",
+        });
+        return unwrap(
+          api.POST("/borrower/salary-slip/confirm", { body: { key, originalName: file.name } }),
+        );
+      }
       const body = new FormData();
       body.append("file", file);
       return fetchJson<BorrowerProfile>("/api/borrower/salary-slip", { method: "POST", body });

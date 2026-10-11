@@ -32,7 +32,8 @@ function rowFor(page: Page, name: string) {
 test("borrower applies; sanction, disbursement and collection take the loan to CLOSED", async ({
   page,
 }) => {
-  const stamp = Date.now();
+  // Unique per test even when parallel workers start in the same millisecond.
+  const stamp = Date.now() + Math.floor(Math.random() * 1_000_000);
   const name = `E2E Borrower ${stamp}`;
   const pan = `EEEEE${String(stamp).slice(-4)}E`;
 

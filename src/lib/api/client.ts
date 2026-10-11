@@ -44,8 +44,11 @@ export async function fetchJson<T>(input: string, init?: RequestInit): Promise<T
   const envelope = body as Partial<ErrorEnvelope> | undefined;
   throw new ApiError(
     response.status,
-    envelope?.error?.code ?? "UNKNOWN",
-    envelope?.error?.message ?? "Something went wrong. Please try again.",
+    envelope?.error?.code ?? (response.status === 413 ? "PAYLOAD_TOO_LARGE" : "UNKNOWN"),
+    envelope?.error?.message ??
+      (response.status === 413
+        ? "That file is too large to upload."
+        : "Something went wrong. Please try again."),
     envelope?.error?.details,
   );
 }

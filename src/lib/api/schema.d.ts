@@ -679,6 +679,228 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/borrower/salary-slip/upload-options": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** How to upload: 'direct' (browser → storage via presigned URL) or 'server' (multipart to the API) */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["UploadOptions"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/borrower/salary-slip/presign": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Storage SDK handshake: returns a 5-minute presigned PUT for one pathname under the caller’s folder */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            type: string;
+            payload: {
+              [key: string]: unknown;
+            };
+          };
+        };
+      };
+      responses: {
+        /** @description Presigned upload */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": {
+              [key: string]: unknown;
+            };
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Business rule violated */
+        422: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/borrower/salary-slip/confirm": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** After a direct upload: server checks size and magic bytes of the stored file, then records it */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["ConfirmSlipBody"];
+        };
+      };
+      responses: {
+        /** @description Stored */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["BorrowerProfile"];
+          };
+        };
+        /** @description Not logged in */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Role lacks permission */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Conflicts with current state */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+        /** @description Business rule violated */
+        422: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": components["schemas"]["ErrorEnvelope"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/ops/sales/leads": {
     parameters: {
       query?: never;
@@ -1624,6 +1846,18 @@ export interface components {
       paidAt: string;
       /** Format: date-time */
       recordedAt: string;
+    };
+    UploadOptions: {
+      /** @enum {string} */
+      mode: "direct" | "server";
+      maxBytes: number;
+      contentTypes: string[];
+      keyPrefix: string;
+    };
+    ConfirmSlipBody: {
+      key: string;
+      /** @default salary-slip */
+      originalName: string;
     };
     LeadPage: {
       items: components["schemas"]["Lead"][];
