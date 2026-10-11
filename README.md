@@ -5,6 +5,7 @@ Next.js 16 (App Router) + TypeScript + Tailwind + shadcn/ui. Borrower portal and
 one-command Docker setup are in the backend README.
 
 **Live:** https://lms-web-five-nu.vercel.app (demo accounts: `admin@lms.dev / Admin@123`, others in the backend README).
+**Demo video:** _link to be added_
 
 ## What's here
 
@@ -41,4 +42,5 @@ npm run lint && npm run typecheck
 
 The E2E suite signs up a borrower, fails then passes eligibility, uploads a slip, applies, and takes the loan through
 sanction → disbursement → two payments → CLOSED; it also checks that a Sales user is redirected from Sanction and gets
-403 from the API, and that Admin sees every module on a phone-size screen.
+403 from the API, and that Admin sees every module on a phone-size screen. It passes locally and against the live site
+(`E2E_BASE_URL=https://lms-web-five-nu.vercel.app npm run test:e2e`).
