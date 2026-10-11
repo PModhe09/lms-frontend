@@ -4,6 +4,8 @@ Next.js 16 (App Router) + TypeScript + Tailwind + shadcn/ui. Borrower portal and
 [lms-backend](https://github.com/PModhe09/lms-backend) API. Architecture, decisions, demo accounts and the
 one-command Docker setup are in the backend README.
 
+**Live:** https://lms-web-five-nu.vercel.app (demo accounts: `admin@lms.dev / Admin@123`, others in the backend README).
+
 ## What's here
 
 - **Borrower portal** (`/apply`): three-step flow driven by the server's onboarding stage — personal details with
